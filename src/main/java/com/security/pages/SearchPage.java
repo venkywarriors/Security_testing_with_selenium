@@ -87,36 +87,6 @@ return "";
         return isDisplayed(NO_RESULTS_MESSAGE);
     }
 
-
-// ================= BASIC SEARCH =================
-
-    public void search(String query) {
-        WebElement input = driver.findElement(SEARCH_INPUT);
-        input.clear();
-        input.sendKeys(query);
-        driver.findElement(SEARCH_BUTTON).click();
-    }
-
-    public String getResultsText() {
-        return driver.findElement(RESULTS_TEXT).getText();
-    }
-
-    public String getPageSource() {
-        return driver.getPageSource();
-    }
-
-    public void navigateTo(String url) {
-        driver.get(url);
-    }
-
-    public boolean isElementDisplayed(By locator) {
-        return driver.findElement(locator).isDisplayed();
-    }
-
-    public boolean isNoResultsDisplayed() {
-        return isElementDisplayed(NO_RESULTS_MESSAGE);
-    }
-
     // ================= XSS TESTING =================
 
     /**
@@ -216,28 +186,6 @@ return "";
 
         return false;
     }
-
-    // ================= ALERT HANDLING =================
-
-    public boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public String getAlertText() {
-        Alert alert = driver.switchTo().alert();
-        return alert.getText();
-    }
-
-    public void acceptAlert() {
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
-    }
-}
 
     /**
      * Check if search returns unexpected data (SQL Injection success).
