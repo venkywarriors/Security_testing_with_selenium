@@ -87,6 +87,158 @@ return "";
         return isDisplayed(NO_RESULTS_MESSAGE);
     }
 
+
+// ================= BASIC SEARCH =================
+
+    public void search(String query) {
+        WebElement input = driver.findElement(SEARCH_INPUT);
+        input.clear();
+        input.sendKeys(query);
+        driver.findElement(SEARCH_BUTTON).click();
+    }
+
+    public String getResultsText() {
+        return driver.findElement(RESULTS_TEXT).getText();
+    }
+
+    public String getPageSource() {
+        return driver.getPageSource();
+    }
+
+    public void navigateTo(String url) {
+        driver.get(url);
+    }
+
+    public boolean isElementDisplayed(By locator) {
+        return driver.findElement(locator).isDisplayed();
+    }
+
+    public boolean isNoResultsDisplayed() {
+        return isElementDisplayed(NO_RESULTS_MESSAGE);
+    }
+
+    // ================= XSS TESTING =================
+
+    /**
+     * Test XSS payload in search.
+     */
+    public boolean testXssPayload(String payload) {
+        search(payload);
+
+        // Check if payload is reflected without encoding
+        String pageSource = getPageSource();
+
+        if (pageSource.contains(payload)) {
+            return true; // Potential reflected XSS
+        }
+
+        // Check if alert was triggered
+        if (isAlertPresent()) {
+            String alertText = getAlertText();
+            acceptAlert();
+            return true; // XSS executed
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if search query is reflected in page.
+     */
+    public boolean isQueryReflected(String query) {
+        return getPageSource().contains(query);
+    }
+
+    /**
+     * Check if query is properly encoded in page.
+     */
+    public boolean isQueryEncoded(String payload) {
+        String pageSource = getPageSource();
+
+        String encodedLt = "&lt;";
+        String encodedGt = "&gt;";
+
+        if (payload.contains("<") && pageSource.contains(encodedLt)) {
+            return true; // Properly encoded
+        }
+
+        return !pageSource.contains(payload);
+    }
+
+    /**
+     * Check for DOM-based XSS in URL.
+     */
+    public boolean testDomXss(String baseUrl, String payload) {
+        String testUrl = baseUrl + "?search=" + payload;
+        navigateTo(testUrl);
+
+        if (isAlertPresent()) {
+            acceptAlert();
+            return true; // DOM XSS vulnerability
+        }
+
+        return false;
+    }
+
+    /**
+     * Get reflected content from results.
+     */
+    public String getReflectedContent() {
+        return getResultsText();
+    }
+
+    // ================= SQL INJECTION TESTING =================
+
+    /**
+     * Test SQL injection in search.
+     */
+    public boolean testSqlInjection(String payload) {
+        search(payload);
+
+        String pageSource = getPageSource().toLowerCase();
+
+        String[] sqlErrors = {
+                "sql syntax",
+                "mysql_fetch",
+                "ora-",
+                "postgresql",
+                "sqlite",
+                "syntax error",
+                "unclosed quotation",
+                "microsoft sql"
+        };
+
+        for (String error : sqlErrors) {
+            if (pageSource.contains(error)) {
+                return true; // SQL error disclosed
+            }
+        }
+
+        return false;
+    }
+
+    // ================= ALERT HANDLING =================
+
+    public boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getAlertText() {
+        Alert alert = driver.switchTo().alert();
+        return alert.getText();
+    }
+
+    public void acceptAlert() {
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+}
+
     /**
      * Check if search returns unexpected data (SQL Injection success).
      */
