@@ -114,23 +114,38 @@ public class LoginPage extends BasePage {
 
     // ================= SECURITY CHECKS =================
 
+/*
+* Check if password field is masked.
+ */
     public boolean isPasswordMasked() {
         return isPasswordField(PASSWORD_INPUT);
     }
 
+ /*
+* Check if username field has autocomplete disabled.
+ */
     public boolean isUsernameAutocompleteDisabled() {
         return isAutocompleteDisabled(USERNAME_INPUT);
     }
 
+/*
+* Check if password field has autocomplete disabled.
+ */
     public boolean isPasswordAutocompleteDisabled() {
         return isAutocompleteDisabled(PASSWORD_INPUT);
     }
 
+/*
+* Check if login form has CSRF token. 
+*/
     public boolean hasCsrfProtection() {
         WebElement form = driver.findElement(By.tagName("form"));
         return hasCsrfToken(form);
     }
 
+  /*
+* Get session cookie name (common names). 
+*/
     public String getSessionCookieName() {
         String[] commonNames = {"JSESSIONID", "PHPSESSID", "ASP.NET_SessionId", "session", "sessionid", "sid"};
 
@@ -142,6 +157,9 @@ public class LoginPage extends BasePage {
         return null;
     }
 
+/*
+* Get session ID value. 
+*/
     public String getSessionId() {
         String cookieName = getSessionCookieName();
         if (cookieName != null) {
@@ -150,17 +168,26 @@ public class LoginPage extends BasePage {
         return null;
     }
 
+/*
+* Check if session cookie is secure. 
+*/
     public boolean isSessionCookieSecure() {
         String cookieName = getSessionCookieName();
         return cookieName != null && isCookieSecure(cookieName);
     }
 
+/*
+* Check if session cookie is HttpOnly. 
+*/
     public boolean isSessionCookieHttpOnly() {
         String cookieName = getSessionCookieName();
         return cookieName != null && isCookieHttpOnly(cookieName);
     }
 
-    public boolean hasVerboseErrorMessage() {
+   /*
+* Check for verbose error messages (security risk). 
+*/
+ public boolean hasVerboseErrorMessage() {
         String errorMsg = getErrorMessage().toLowerCase();
 
         return errorMsg.contains("user not found") ||
@@ -170,6 +197,9 @@ public class LoginPage extends BasePage {
                 errorMsg.contains("doesn't exist");
     }
 
+/*
+* Test for account lockout after failed attempts.
+ */
     public boolean hasAccountLockout(String username, int maxAttempts) {
         for (int i = 0; i < maxAttempts + 1; i++) {
             login(username, "wrongpassword" + i);
@@ -184,6 +214,9 @@ public class LoginPage extends BasePage {
         return false;
     }
 
+/*
+* Inject payload into username field and check response. 
+*/
     public String testUsernameInjection(String payload) {
         enterUsername(payload);
         enterPassword("test");
@@ -191,6 +224,9 @@ public class LoginPage extends BasePage {
         return getPageSource();
     }
 
+  /*
+* Inject payload into password field and check response.
+ */
     public String testPasswordInjection(String payload) {
         enterUsername("test");
         enterPassword(payload);
@@ -198,6 +234,9 @@ public class LoginPage extends BasePage {
         return getPageSource();
     }
 
+  /*
+* Test both fields with payload.
+ */
     public String testBothFieldsInjection(String payload) {
         enterUsername(payload);
         enterPassword(payload);
