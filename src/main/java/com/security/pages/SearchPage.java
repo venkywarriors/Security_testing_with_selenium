@@ -62,6 +62,16 @@ public class SearchPage extends BasePage {
         return this;
     }
 
+/**
+Get search results text..
+*/
+public String getResultsText() {
+if (isElementPresent(SEARCH_RESULTS)) {
+return getText(SEARCH_RESULTS);
+}
+return "";
+}
+
     /**
      * Get result count.
      */
