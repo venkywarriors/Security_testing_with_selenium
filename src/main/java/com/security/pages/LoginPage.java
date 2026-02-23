@@ -54,30 +54,48 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+/*
+* Enter password.
+ */
     public LoginPage enterPassword(String password) {
         type(PASSWORD_INPUT, password);
         return this;
     }
 
+/*
+* Click login button. 
+*/
     public void clickLogin() {
         click(LOGIN_BUTTON);
     }
 
+/*
+* Perform complete login. 
+*/
     public void login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
         clickLogin();
     }
 
+/*
+* Check if login was successful (user is logged in).
+ */
     public boolean isLoggedIn() {
         return isElementPresent(LOGOUT_LINK) ||
                 !getCurrentUrl().contains("login");
     }
 
+/*
+* Check if error message is displayed. 
+*/
     public boolean isErrorDisplayed() {
         return isElementDisplayed(ERROR_MESSAGE);
     }
 
+/*
+* Get error message text. 
+*/
     public String getErrorMessage() {
         if (isErrorDisplayed()) {
             return getText(ERROR_MESSAGE);
@@ -85,6 +103,9 @@ public class LoginPage extends BasePage {
         return "";
     }
 
+/*
+* click logout. 
+*/
     public void logout() {
         if (isElementPresent(LOGOUT_LINK)) {
             click(LOGOUT_LINK);
