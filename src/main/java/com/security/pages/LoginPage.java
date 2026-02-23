@@ -5,9 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+* Login page object for security testing 
+    * customize selectors based on your target application 
+    */
 public class LoginPage extends BasePage {
 
     // ================= LOCATORS =================
+    // Update these selectors to match your target application 
 
     private static final By USERNAME_INPUT = By.id("username");
     private static final By PASSWORD_INPUT = By.id("password");
@@ -17,6 +22,11 @@ public class LoginPage extends BasePage {
     private static final By FORGOT_PASSWORD_LINK = By.linkText("Forgot Password");
     private static final By REMEMBER_ME_CHECKBOX = By.id("rememberMe");
 
+    //Alternative common selectors 
+    private static final By USERNAME_BY_NAME = By.id("username");
+    private static final By PASSWORD_BY_NAME = By.id("password");
+    private static final By LOGIN_BY_TYPE = By.cssSelector("button[type='submit']");
+    
     // ================= PAGE FACTORY =================
 
     @FindBy(id = "username")
