@@ -131,5 +131,43 @@ Token validation on form submission
 
 To enable ZAP proxy integration:
 Start OWASP ZAP in daemon mode:
+```
+bash
+zap.sh-daemon -port 8080
+```
+
+2. Enable ZAP in config:
+```properties
+zap.enabled=true
+zap.host=localhost
+zap.port=8080
+```
+3. Run tests traffic will be proxied through ZAP for additional scanning
+
+## Reports
+
+Test reports are generated in:
+**ExtentReports**: 'test-output/Security TestReport.html
+**TestNG Reports**: target/surefire-reports/
+
+## Customization
+
+### Adding Custom Payloads
+Add payloads to files in 'src/test/resources/payloads/`:
+- `sql_injection_payloads.txt`
+- `xss_payloads.txt`
+
+### Adding New Tests
+
+1. Create new test class extending BaseTest'
+2. Use @Test annotation with appropriate groups
+3. Add to testng.xml' if needed
+
+## Security Considerations
+
+Only test applications you have permission to test
+Use in controlled environments (dev/staging)
+Never test production systems without explicit authorization
+Review and comply with your organization's security testing policies
 
 
