@@ -87,5 +87,49 @@ mvn test -Dtest AuthenticationTest
 ```bash
 mvn test -Dbrowser=firefox
 ```
+### Run in headless mode
+```bash
+mvn test -Dheadless=true
+```
+## Test Categories
+
+### 1. SQL Injection Tests
+Login form injection
+Search field injection
+URL parameter injection
+Error-based injection detection
+
+### 2. XSS Tests
+Reflected XSS
+Stored XSS
+DOM-based XSS
+Input sanitization verification
+
+### 3. Authentication Tests
+Direct URL access without login
+Session token validation
+Password policy enforcement
+Account lockout testing
+
+### 4. Session Management Tests
+Session ID regeneration after login
+Session timeout verification
+Cookie security flags (HttpOnly, Secure)
+Concurrent session handling
+
+5. Sensitive Data Exposure Tests
+HTTPS enforcement
+Password field masking
+Sensitive data in URL parameters
+Autocomplete disabled for sensitive fields
+
+6. CSRF Tests
+CSRF token presence
+Token validation on form submission
+
+## OWASP ZAP Integration
+
+To enable ZAP proxy integration:
+Start OWASP ZAP in daemon mode:
 
 
