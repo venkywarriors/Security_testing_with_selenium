@@ -148,7 +148,6 @@ public class LoginPage extends BasePage {
 */
     public String getSessionCookieName() {
         String[] commonNames = {"JSESSIONID", "PHPSESSID", "ASP.NET_SessionId", "session", "sessionid", "sid"};
-
         for (String name : commonNames) {
             if (getCookie(name) != null) {
                 return name;
@@ -189,7 +188,6 @@ public class LoginPage extends BasePage {
 */
  public boolean hasVerboseErrorMessage() {
         String errorMsg = getErrorMessage().toLowerCase();
-
         return errorMsg.contains("user not found") ||
                 errorMsg.contains("invalid username") ||
                 errorMsg.contains("password incorrect") ||
