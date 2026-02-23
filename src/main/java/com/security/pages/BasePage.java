@@ -21,8 +21,7 @@ public abstract class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver,
-                Duration.ofSeconds(ConfigReader.getExplicitWait()));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigReader.getExplicitWait()));
         PageFactory.initElements(driver, this);
     }
 
