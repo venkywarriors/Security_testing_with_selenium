@@ -98,6 +98,7 @@ return "";
         // Check if payload is reflected without encoding
         String pageSource = getPageSource();
 
+        // check for unescaped script page
         if (pageSource.contains(payload)) {
             return true; // Potential reflected XSS
         }
@@ -108,7 +109,7 @@ return "";
             acceptAlert();
             return true; // XSS executed
         }
-
+        
         return false;
     }
 
@@ -125,6 +126,7 @@ return "";
     public boolean isQueryEncoded(String payload) {
         String pageSource = getPageSource();
 
+        // check for HTML entity encoding 
         String encodedLt = "&lt;";
         String encodedGt = "&gt;";
 
@@ -142,6 +144,7 @@ return "";
         String testUrl = baseUrl + "?search=" + payload;
         navigateTo(testUrl);
 
+        // check if alert was triggered 
         if (isAlertPresent()) {
             acceptAlert();
             return true; // DOM XSS vulnerability
@@ -167,6 +170,7 @@ return "";
 
         String pageSource = getPageSource().toLowerCase();
 
+        // check for SQL error messages 
         String[] sqlErrors = {
                 "sql syntax",
                 "mysql_fetch",
