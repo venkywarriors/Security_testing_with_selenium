@@ -44,9 +44,15 @@ public class SearchPage extends BasePage {
      */
     public SearchPage clickSearch() {
         click(SEARCH_BUTTON);
-        return this;
     }
 
+    /**
+     * Submit search 
+     */
+    public void submitSearch() {
+        WebElement searchInput = driver.findElement(SEARCH_INPUT);
+        searchInput.submit();
+    }
     /**
      * Perform full search action.
      */
