@@ -46,6 +46,9 @@ public class LoginPage extends BasePage {
 
     // ================= PAGE ACTIONS =================
 
+/*
+* Enter username.
+ */
     public LoginPage enterUsername(String username) {
         type(USERNAME_INPUT, username);
         return this;
