@@ -2,7 +2,7 @@ Selenium Security Testing Framework
 
 A comprehensive Java-based security testing framework using Selenium WebDriver to automate OWASP Top 10 vulnerability testing.
 
-##Features
+## Features
 
 - **SQL Injection Testing** - Tests login forms and input fields for SQL injection vulnerabilities
 - **XSS Testing** - Cross-Site Scripting vulnerability detection
@@ -12,7 +12,7 @@ A comprehensive Java-based security testing framework using Selenium WebDriver t
 - **CSRF Testing** - Cross-Site Request Forgery token validation
 - **OWASP ZAP Integration** - Optional integration with OWASP ZAP proxy for deeper scanning
 
-##Project Structure
+## Project Structure
 ~~~
 SecurityTestFramework/
 │── pom.xml
@@ -45,5 +45,47 @@ SecurityTestFramework/
 │   │   │   └── xss_payloads.txt
 │── testng.xml
 
+## Prerequisites
+
+Java 17 or higher
+Maven 3.6+
+Chrome/Firefox browser
+(Optional) OWASP ZAP for proxy-based testing
+
+## Setup
+
+1. **Clone or copy the project**
+
+2. **Configure target application**
+Edit `src/test/resources/config.properties`:
+```properties
+base.url=https://your-target-app.com
+browser=chrome
+headless=false
+```
+
+3. **Install dependencies**
+```bash
+mvn clean install -DskipTests
+```
+
+## Running Tests
+
+### Run all security tests
+```bash
+mvn test
+```
+
+### Run specific test suite
+```bash
+mvn test -Dtest=SqlInjectionTest
+mvn test -Dtest=XssTest
+mvn test -Dtest AuthenticationTest
+```
+
+### Run with specific browser
+```bash
+mvn test -Dbrowser=firefox
+```
 
 
