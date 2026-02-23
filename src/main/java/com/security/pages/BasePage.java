@@ -188,3 +188,178 @@ public abstract class BasePage {
     public void deleteAllCookies() {
         driver.manage().deleteAllCookies();
     }
+
+/**
+ * check if cookies has http only flag
+ */
+    public boolean isCookieHttpOnly(String cookieName) {
+        Cookie cookie = driver.manage().getCookieNamed(cookieName);
+        return cookie != null && cookie.isHttpOnly();
+    }
+
+    /**
+ * check if cookies has Secured flag
+ */
+public boolean isCookieSecure(String cookieName) {
+        Cookie cookie = driver.manage().getCookieNamed(cookieName);
+        return cookie != null && cookie.isSecure();
+    }
+
+    // ================== JAVASCRIPT EXECUTION ==================
+
+/**
+ * Execute JS
+ */
+    protected Object executeScript(String script, Object... args) {
+        return ((JavascriptExecutor) driver).executeScript(script, args);
+    }
+
+/**
+ * Execute JS
+ */
+    protected Object executeAsyncScript(String script, Object... args) {
+        return ((JavascriptExecutor) driver).executeAsyncScript(script, args);
+    }
+
+/**
+ * Execute JS
+ */
+    protected void scrollToElement(WebElement element) {
+        executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    // ================== ALERT HANDLING ==================
+
+/**
+ * Alert 
+ */
+    public boolean isAlertPresent() {
+        try {
+            wait.until(ExpectedConditions.alertIsPresent());
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+/**
+ * Alert 
+ */
+    public void acceptAlert() {
+        driver.switchTo().alert().accept();
+    }
+
+/**
+ * Alert 
+ */
+    public void dismissAlert() {
+        driver.switchTo().alert().dismiss();
+    }
+
+/**
+ * Alert 
+ */
+    public String getAlertText() {
+        return driver.switchTo().alert().getText();
+    }
+
+    // ================== FRAME HANDLING ==================
+
+/**
+ * frame 
+ */
+    public void switchToFrame(int index) {
+        driver.switchTo().frame(index);
+    }
+
+/**
+ * frame 
+ */
+    public void switchToFrame(String nameOrId) {
+        driver.switchTo().frame(nameOrId);
+    }
+
+/**
+ * frame 
+ */
+    public void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
+    }
+
+    // ================== WINDOW HANDLING ==================
+
+/**
+ * window
+ */
+    public String getWindowHandle() {
+        return driver.getWindowHandle();
+    }
+
+/**
+ * window
+ */
+    public Set<String> getWindowHandles() {
+        return driver.getWindowHandles();
+    }
+
+/**
+ * window
+ */
+    public void switchToWindow(String windowHandle) {
+        driver.switchTo().window(windowHandle);
+    }
+
+    // ================== SECURITY ==================
+
+/**
+ * check url uses https
+ */
+    public boolean isHttps() {
+        return driver.getCurrentUrl().startsWith("https://");
+    }
+
+/**
+ * check auto complete is disabled 
+ */
+    public boolean isAutocompleteDisabled(By locator) {
+        String autocomplete = driver.findElement(locator).getAttribute("autocomplete");
+        return "off".equalsIgnoreCase(autocomplete);
+    }
+
+/**
+ * password type 
+ */
+    public boolean isPasswordField(By locator) {
+        String type = driver.findElement(locator).getAttribute("type");
+        return "password".equalsIgnoreCase(type);
+    }
+
+/**
+ * ELEMENT COLLECTION
+ */ 
+public List<WebElement> findAllInputFields() {
+        return driver.findElements(By.tagName("input"));
+    }
+
+/**
+ * all form ELEMENTS 
+ */
+    public List<WebElement> findAllForms() {
+        return driver.findElements(By.tagName("form"));
+    }
+
+/**
+ * CSRF token 
+ */
+  public boolean hasCsrfToken(WebElement form) {
+        List<WebElement> hiddenInputs = form.findElements(By.cssSelector("input[type='hidden']"));
+
+        for (WebElement input : hiddenInputs) {
+            String name = input.getAttribute("name").toLowerCase();
+            if (name.contains("csrf") || name.contains("token") || name.contains("_token")) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
