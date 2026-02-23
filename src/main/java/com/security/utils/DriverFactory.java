@@ -35,7 +35,6 @@ public class DriverFactory {
      * Create new WebDriver based on configuration.
      */
     private static WebDriver createDriver() {
-
         String browser = ConfigReader.getBrowser().toLowerCase();
         boolean headless = ConfigReader.isHeadless();
         WebDriver driver;
@@ -46,15 +45,12 @@ public class DriverFactory {
         }
 
         switch (browser) {
-
             case "firefox":
                 driver = createFirefoxDriver(headless, proxy);
                 break;
-
             case "edge":
                 driver = createEdgeDriver(headless, proxy);
                 break;
-
             case "chrome":
             default:
                 driver = createChromeDriver(headless, proxy);
@@ -69,7 +65,6 @@ public class DriverFactory {
      * Create Chrome WebDriver.
      */
     private static WebDriver createChromeDriver(boolean headless, Proxy proxy) {
-
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
@@ -99,7 +94,6 @@ public class DriverFactory {
      * Create Firefox WebDriver.
      */
     private static WebDriver createFirefoxDriver(boolean headless, Proxy proxy) {
-
         WebDriverManager.firefoxdriver().setup();
 
         FirefoxOptions options = new FirefoxOptions();
@@ -124,7 +118,6 @@ public class DriverFactory {
      * Create Edge WebDriver.
      */
     private static WebDriver createEdgeDriver(boolean headless, Proxy proxy) {
-
         WebDriverManager.edgedriver().setup();
 
         EdgeOptions options = new EdgeOptions();
@@ -148,7 +141,6 @@ public class DriverFactory {
      * Create ZAP proxy configuration.
      */
     private static Proxy createZapProxy() {
-
         String zapAddress = ConfigReader.getZapHost() + ":" + ConfigReader.getZapPort();
 
         Proxy proxy = new Proxy();
@@ -162,7 +154,6 @@ public class DriverFactory {
      * Configure driver timeouts and settings.
      */
     private static void configureDriver(WebDriver driver) {
-
         driver.manage().timeouts().implicitlyWait(
                 Duration.ofSeconds(ConfigReader.getImplicitWait())
         );
@@ -170,7 +161,6 @@ public class DriverFactory {
         driver.manage().timeouts().pageLoadTimeout(
                 Duration.ofSeconds(ConfigReader.getPageLoadTimeout())
         );
-
         driver.manage().window().maximize();
     }
 
@@ -178,9 +168,7 @@ public class DriverFactory {
      * Quit WebDriver and remove from thread local.
      */
     public static void quitDriver() {
-
         WebDriver driver = driverThreadLocal.get();
-
         if (driver != null) {
             driver.quit();
             driverThreadLocal.remove();
