@@ -171,10 +171,8 @@ public class XssTest extends BaseTest {
 
         for (String param : params) {
             for (String payload : SecurityPayloads.XSS_BASIC) {
-
                 String testUrl = baseUrl + "/search?" + param + "=" +
-                        java.net.URLEncoder.encode(payload,
-                             java.nio.charset.StandardCharsets.UTF_8);
+                        java.net.URLEncoder.encode(payload, java.nio.charset.StandardCharsets.UTF_8);
 
                 ReportManager.logInfo("Testing: " + testUrl);
                 driver.get(testUrl);
