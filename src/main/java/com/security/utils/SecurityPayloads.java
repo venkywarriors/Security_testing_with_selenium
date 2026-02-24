@@ -111,10 +111,10 @@ public class SecurityPayloads {
 
     public static final String[] LDAP_INJECTION = {
         "*",
-        "*)(",
-        ")(uid=*)|(uid=*",
-        "admin)(&",
-        "admin)(|(password=*)"
+        "*)(&",
+        "*)(uid=*)|(uid=*",
+        "admin)(&)",
+        "admin)(|(password=*))"
     };
 
     // ==================== COMMAND INJECTION PAYLOADS ====================
@@ -133,7 +133,7 @@ public class SecurityPayloads {
 
     public static final String[] HEADER_INJECTION = {
         "test\r\nX-Injected: header",
-        "test%0d%0aX-Injected: header",
+        "test%0d%0aX-Injected:%20header",
         "test\r\nSet-Cookie: injected=true"
     };
 
