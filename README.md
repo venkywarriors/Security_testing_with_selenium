@@ -211,7 +211,7 @@ Add payloads to:
 
     src/test/resources/payloads/
 
--   `sql_injection_payloads.txt`\
+-   `sql_injection_payloads.txt`
 -   `xss_payloads.txt`
 
 ### ➕ Adding New Tests
