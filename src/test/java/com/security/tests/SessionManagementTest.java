@@ -76,15 +76,12 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test session cookie has HttpOnly flag",
             groups = {"session", "cookies"})
     public void testSessionCookie_HttpOnly() {
-
         navigateTo("/login");
 
         String sessionCookieName = loginPage.getSessionCookieName();
 
         if (sessionCookieName == null) {
-
             ReportManager.logInfo("No standard session cookie found");
-
             // Check all cookies
             Set<Cookie> cookies = driver.manage().getCookies();
             for (Cookie cookie : cookies) {
@@ -93,9 +90,7 @@ public class SessionManagementTest extends BaseTest {
                             + " missing HttpOnly flag");
                 }
             }
-
         } else {
-
             boolean isHttpOnly = loginPage.isSessionCookieHttpOnly();
 
             if (!isHttpOnly) {
@@ -106,15 +101,13 @@ public class SessionManagementTest extends BaseTest {
             Assert.assertTrue(isHttpOnly,
                     "Session cookie must have HttpOnly flag");
 
-            logSecurityPassed("Session Cookie HttpOnly",
-                    "Flag properly set");
+            logSecurityPassed("Session Cookie HttpOnly", "Flag properly set");
         }
     }
 
     @Test(description = "Test session cookie has Secure flag",
             groups = {"session", "cookies"})
     public void testSessionCookie_Secure() {
-
         // Only relevant for HTTPS sites
         if (!baseUrl.startsWith("https://")) {
             ReportManager.logWarning("Site not using HTTPS - Secure flag test skipped");
@@ -126,7 +119,6 @@ public class SessionManagementTest extends BaseTest {
         String sessionCookieName = loginPage.getSessionCookieName();
 
         if (sessionCookieName != null) {
-
             boolean isSecure = loginPage.isSessionCookieSecure();
 
             if (!isSecure) {
