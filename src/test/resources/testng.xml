@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Security Test Suite" parallel="classes" thread-count="2" verbose="1">
+
+    <!-- Test Parameters -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="headless" value="false"/>
+
+    <!-- Listeners -->
+    <listeners>
+        <listener class-name="org.testng.reporters.EmailableReporter2"/>
+    </listeners>
+
+    <!-- SQL Injection Tests -->
+    <test name="SQL Injection Tests">
+        <groups>
+            <run>
+                <include name="sql-injection"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.security.tests.SqlInjectionTest"/>
+        </classes>
+    </test>
+
+    <!-- XSS Tests -->
+    <test name="XSS Tests">
+        <groups>
+            <run>
+                <include name="xss"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.security.tests.XssTest"/>
+        </classes>
+    </test>
+
+    <!-- Authentication Tests -->
+    <test name="Authentication Tests">
+        <groups>
+            <run>
+                <include name="authentication"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.security.tests.AuthenticationTest"/>
+        </classes>
+    </test>
+
+    <!-- Session Management Tests -->
+    <test name="Session Management Tests">
+        <groups>
+            <run>
+                <include name="session"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.security.tests.SessionManagementTest"/>
+        </classes>
+    </test>
+
+    <!-- Sensitive Data Exposure Tests -->
+    <test name="Sensitive Data Exposure Tests">
+        <groups>
+            <run>
+                <include name="sensitive-data"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.security.tests.SensitiveDataExposureTest"/>
+        </classes>
+    </test>
+
+    <!-- All Security Tests -->
+    <test name="All Security Tests">
+        <classes>
+            <class name="com.security.tests.SqlInjectionTest"/>
+            <class name="com.security.tests.XssTest"/>
+            <class name="com.security.tests.AuthenticationTest"/>
+            <class name="com.security.tests.SessionManagementTest"/>
+            <class name="com.security.tests.SensitiveDataExposureTest"/>
+        </classes>
+    </test>
+
+</suite>
