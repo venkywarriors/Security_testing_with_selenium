@@ -61,17 +61,17 @@ public class SecurityPayloads {
         "<script>alert(document.cookie)</script>",
         "<script>alert(document.domain)</script>",
         "<ScRiPt>alert('XSS')</ScRiPt>",
-        "<script src=\"http://evil.com/xss.js\"></script>"
+        "<script src='http://evil.com/xss.js'></script>"
     };
 
     public static final String[] XSS_EVENT_HANDLERS = {
         "<img src=x onerror=alert('XSS')>",
-        "<img src=x onerror=alert(1)>",
+        "<img src=x onerror='alert(1)'>",
         "<svg onload=alert('XSS')>",
         "<body onload=alert('XSS')>",
         "<input onfocus=alert('XSS') autofocus>",
         "<marquee onstart=alert('XSS')>",
-        "<video><source onerror=alert('XSS')></video>",
+        "<video><source onerror=alert('XSS')>",
         "<audio src=x onerror=alert('XSS')>",
         "<details open ontoggle=alert('XSS')>"
     };
@@ -80,7 +80,7 @@ public class SecurityPayloads {
         "javascript:alert('XSS')",
         "javascript:alert(document.cookie)",
         "<a href=\"javascript:alert(1)\">Click</a>",
-        "<iframe src=\"javascript:alert(1)\"></iframe>"
+        "<iframe src=\"javascript:alert(1)\">"
     };
 
     public static final String[] XSS_ENCODED = {
@@ -101,7 +101,7 @@ public class SecurityPayloads {
     public static final String[] PATH_TRAVERSAL = {
         "../../etc/passwd",
         "..\\..\\windows\\system32\\config\\sam",
-        "../../../etc/passwd",
+        "..../..../..../etc/passwd",
         "%2e%2e%2f%2e%2e%2fetc%2fpasswd",
         "..%252f..%252fetc/passwd",
         "/etc/passwd%00.jpg"
