@@ -378,5 +378,7 @@ public class SessionManagementTest extends BaseTest {
                 }
             }
         }
+logSecurityPassed("Token Storage",
+                "Browser storage checked for sensitive data");
     }
 }
