@@ -129,15 +129,13 @@ public class SessionManagementTest extends BaseTest {
             Assert.assertTrue(isSecure,
                     "Session cookie must have Secure flag for HTTPS sites");
 
-            logSecurityPassed("Session Cookie Secure",
-                    "Flag properly set");
+            logSecurityPassed("Session Cookie Secure",  "Flag properly set");
         }
     }
 
     @Test(description = "Test session cookie SameSite attribute",
             groups = {"session", "cookies"})
     public void testSessionCookie_SameSite() {
-
         navigateTo("/login");
 
         Set<Cookie> cookies = driver.manage().getCookies();
@@ -162,15 +160,12 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test session ID length and entropy",
             groups = {"session", "entropy"})
     public void testSessionId_Entropy() {
-
         navigateTo("/login");
 
         String sessionId = loginPage.getSessionId();
 
         if (sessionId != null) {
-
             int length = sessionId.length();
-
             ReportManager.logInfo("Session ID: " + sessionId);
             ReportManager.logInfo("Session ID length: " + length);
 
@@ -191,7 +186,6 @@ public class SessionManagementTest extends BaseTest {
 
             logSecurityPassed("Session ID Entropy",
                     "Length: " + length + " chars");
-
         } else {
             ReportManager.logInfo("No session ID found for entropy analysis");
         }
@@ -200,7 +194,6 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test session ID is not exposed in URL",
             groups = {"session", "exposure"})
     public void testSessionId_NotInUrl() {
-
         navigateTo("/login");
 
         String currentUrl = getCurrentUrl();
@@ -223,7 +216,6 @@ public class SessionManagementTest extends BaseTest {
                     "Actual session ID value found in URL");
             Assert.fail("Session ID value exposed in URL");
         }
-
         logSecurityPassed("Session ID Not in URL",
                 "Session ID properly hidden");
     }
@@ -233,21 +225,22 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test session timeout configuration",
             groups = {"session", "timeout"})
     public void testSessionTimeout() {
-
+        
         ReportManager.logInfo("Session timeout test requires long wait - recommend manual testing");
 
         navigateTo("/login");
+// session timeout typically range from 15-60 minutes 
+        //automated testing of actual timeout is impractical 
 
+        // Instead, check for client side timeout handling 
         String pageSource = getPageSource().toLowerCase();
 
         // Look for client-side timeout mechanisms
         if (pageSource.contains("settimeout")
                 || (pageSource.contains("session")
                 && (pageSource.contains("expire") || pageSource.contains("timeout")))) {
-
             ReportManager.logInfo("Client-side session handling detected");
         }
-
         logSecurityPassed("Session Timeout",
                 "Manual verification recommended - check server configuration");
     }
@@ -257,9 +250,14 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test concurrent session handling",
             groups = {"session", "concurrent"})
     public void testConcurrentSessions() {
-
         ReportManager.logInfo("Concurrent session test - checking for session limits");
 
+        // this test wiuld require 
+// 1. login from browser 1
+        // 2. login from browser 2 ( same user )
+        // 3. check if the first session is invalidated
+        
+        // with single driver, we can check if any limits are communicated 
         navigateTo("/login");
 
         String pageSource = getPageSource().toLowerCase();
@@ -280,7 +278,6 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test session bound to client fingerprint",
             groups = {"session", "hijacking"})
     public void testSessionClientBinding() {
-
         ReportManager.logInfo("Session-client binding test");
 
         // Proper session security should bind session to:
@@ -289,7 +286,8 @@ public class SessionManagementTest extends BaseTest {
         // - Other fingerprinting
 
         // This is difficult to test automatically
-
+// would require changing user agent and testing if session still valid
+        
         logSecurityPassed("Session Binding",
                 "Requires manual testing with modified client parameters");
     }
@@ -299,11 +297,12 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test proper session invalidation on logout",
             groups = {"session", "logout"})
     public void testSessionInvalidation_Logout() {
-
         ReportManager.logInfo("Testing session invalidation on logout");
 
+        // this test requires ability to login 
         navigateTo("/login");
 
+        // get pre login session 
         String sessionBefore = loginPage.getSessionId();
 
         // After logout:
@@ -318,7 +317,6 @@ public class SessionManagementTest extends BaseTest {
     @Test(description = "Test session invalidation on password change",
             groups = {"session", "password-change"})
     public void testSessionInvalidation_PasswordChange() {
-
         ReportManager.logInfo("Password change should invalidate all sessions");
 
         // Best practice: changing password should invalidate all existing sessions
@@ -342,11 +340,13 @@ public class SessionManagementTest extends BaseTest {
 
         navigateToBaseUrl();
 
+        // check local Storage 
         @SuppressWarnings("unchecked")
         java.util.Map<String, String> localStorage =
                 (java.util.Map<String, String>) ((org.openqa.selenium.JavascriptExecutor) driver)
                         .executeScript("return Object.assign({}, localStorage);");
 
+        // check session storage 
         @SuppressWarnings("unchecked")
         java.util.Map<String, String> sessionStorage =
                 (java.util.Map<String, String>) ((org.openqa.selenium.JavascriptExecutor) driver)
