@@ -216,17 +216,17 @@ Add payloads to:
 
 ### ➕ Adding New Tests
 
-1.  Create a new test class extending `BaseTest`\
-2.  Use the `@Test` annotation with appropriate groups\
+1.  Create a new test class extending `BaseTest`
+2.  Use the `@Test` annotation with appropriate groups
 3.  Add it to `testng.xml` if required
 
 ------------------------------------------------------------------------
 
 ## ⚠️ Security Considerations
 
--   Only test applications you have permission to test\
--   Use in controlled environments (dev/staging)\
--   Never test production systems without explicit authorization\
+-   Only test applications you have permission to test
+-   Use in controlled environments (dev/staging)
+-   Never test production systems without explicit authorization
 -   Review and comply with your organization's security testing policies
 
 ------------------------------------------------------------------------
