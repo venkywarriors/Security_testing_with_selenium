@@ -1,187 +1,233 @@
-# 🔐 Selenium Security Testing Framework
+# Selenium Security Testing Framework
 
-A production-ready **Java + Selenium WebDriver** framework designed for
-developers and security engineers to automate validation of web
-application vulnerabilities aligned with OWASP Top 10.
-
-------------------------------------------------------------------------
-
-## 🎯 Target Audience
-
-### 👨‍💻 Developers
-
--   Validate secure coding practices during development
--   Detect vulnerabilities early in the SDLC
--   Integrate automated security tests into CI/CD
--   Prevent regression of known security issues
-
-### 🛡 Security Engineers
-
--   Automate repetitive security validation tasks
--   Perform structured OWASP Top 10 coverage
--   Integrate with dynamic scanners (e.g., OWASP ZAP)
--   Generate security-focused execution reports
+A comprehensive **Java-based security testing framework** using
+**Selenium WebDriver** to automate **OWASP Top 10** vulnerability
+testing.
 
 ------------------------------------------------------------------------
 
-## 🚀 Key Capabilities
+## 🚀 Features
 
-### 1. SQL Injection
-
--   Login form injection testing\
--   URL parameter manipulation\
--   Error-based injection detection
-
-### 2. Cross-Site Scripting (XSS)
-
--   Reflected XSS\
--   Stored XSS\
--   DOM-based XSS\
--   Input sanitization validation
-
-### 3. Authentication & Access Control
-
--   Authentication bypass attempts\
--   Direct URL access validation\
--   Password policy enforcement\
--   Account lockout verification
-
-### 4. Session Management
-
--   Session ID regeneration after login\
--   Session timeout validation\
--   Cookie security flags (HttpOnly, Secure)\
--   Concurrent session handling
-
-### 5. Sensitive Data Exposure
-
--   HTTPS enforcement validation\
--   Password masking verification\
--   Sensitive data in URL detection\
--   Autocomplete restrictions on sensitive fields
-
-### 6. CSRF Protection
-
--   CSRF token presence validation\
--   Token verification on form submission
+-   **SQL Injection Testing** -- Tests login forms and input fields for
+    SQL injection vulnerabilities\
+-   **XSS Testing** -- Cross-Site Scripting vulnerability detection\
+-   **Authentication Testing** -- Tests for authentication bypass and
+    broken access control\
+-   **Session Management Testing** -- Session fixation, timeout, and
+    cookie security tests\
+-   **Sensitive Data Exposure Testing** -- HTTPS enforcement, password
+    masking, etc.\
+-   **CSRF Testing** -- Cross-Site Request Forgery token validation\
+-   **OWASP ZAP Integration** -- Optional integration with OWASP ZAP
+    proxy for deeper scanning
 
 ------------------------------------------------------------------------
 
-## 🏗 Architecture Overview
+## 📁 Project Structure
 
-SecurityTestFramework/ │── pom.xml\
-│── testng.xml\
-│\
-├── src/\
-│ ├── main/java/com/security/\
-│ │ ├── config/\
-│ │ ├── pages/\
-│ │ └── utils/\
-│ │\
-│ ├── test/java/com/security/tests/\
-│ │\
-│ └── test/resources/\
-│ ├── config.properties\
-│ ├── payloads/\
-│ └── log4j2.xml
+    SecurityTestFramework/
+    │── pom.xml
+    │── README.md
+    │── src/
+    │   ├── main/java/com/security/
+    │   │   ├── config/
+    │   │   │   └── ConfigReader.java
+    │   │   ├── pages/
+    │   │   │   ├── BasePage.java
+    │   │   │   └── LoginPage.java
+    │   │   ├── utils/
+    │   │   │   ├── DriverFactory.java
+    │   │   │   ├── SecurityPayloads.java
+    │   │   │   ├── ReportManager.java
+    │   │   │   └── ZapIntegration.java
+    │   ├── test/java/com/security/tests/
+    │   │   ├── BaseTest.java
+    │   │   ├── SqlInjectionTest.java
+    │   │   ├── XssTest.java
+    │   │   ├── AuthenticationTest.java
+    │   │   ├── SessionManagementTest.java
+    │   │   ├── SensitiveDataExposureTest.java
+    │   │   └── CsrfTest.java
+    │   └── test/resources/
+    │       ├── config.properties
+    │       ├── log4j2.xml
+    │       └── payloads/
+    │           ├── sql_injection_payloads.txt
+    │           └── xss_payloads.txt
+    │── testng.xml
 
 ------------------------------------------------------------------------
 
-## ⚙️ Prerequisites
+## 📋 Prerequisites
 
--   Java 17+
--   Maven 3.6+
--   Chrome or Firefox
--   (Optional) OWASP ZAP for proxy-based scanning
+-   Java 17 or higher\
+-   Maven 3.6+\
+-   Chrome or Firefox browser\
+-   (Optional) OWASP ZAP for proxy-based testing
 
 ------------------------------------------------------------------------
 
-## 🔧 Setup
+## ⚙️ Setup
 
-### Configure Target Application
+### 1️⃣ Clone or Copy the Project
+
+``` bash
+git clone <repository-url>
+```
+
+### 2️⃣ Configure Target Application
 
 Edit:
 
-src/test/resources/config.properties
+    src/test/resources/config.properties
 
-Example:
+``` properties
+base.url=https://your-target-app.com
+browser=chrome
+headless=false
+```
 
-base.url=https://your-target-app.com\
-browser=chrome\
-headless=false\
-zap.enabled=false\
-zap.host=localhost\
-zap.port=8080
+### 3️⃣ Install Dependencies
+
+``` bash
+mvn clean install -DskipTests
+```
 
 ------------------------------------------------------------------------
 
 ## ▶️ Running Tests
 
-Run Full Security Suite:
+### Run All Security Tests
 
+``` bash
 mvn test
+```
 
-Run Specific Test Class:
+### Run Specific Test Class
 
-mvn test -Dtest=SqlInjectionTest\
-mvn test -Dtest=XssTest\
+``` bash
+mvn test -Dtest=SqlInjectionTest
+mvn test -Dtest=XssTest
 mvn test -Dtest=AuthenticationTest
+```
 
-Run in Headless Mode:
+### Run with Specific Browser
 
-mvn test -Dheadless=true
-
-Run on Firefox:
-
+``` bash
 mvn test -Dbrowser=firefox
+```
+
+### Run in Headless Mode
+
+``` bash
+mvn test -Dheadless=true
+```
 
 ------------------------------------------------------------------------
 
-## 🔎 OWASP ZAP Integration (Optional)
+## 🧪 Test Categories
 
-Start ZAP in daemon mode:
+### 1️⃣ SQL Injection Tests
 
+-   Login form injection\
+-   Search field injection\
+-   URL parameter injection\
+-   Error-based injection detection
+
+### 2️⃣ XSS Tests
+
+-   Reflected XSS\
+-   Stored XSS\
+-   DOM-based XSS\
+-   Input sanitization verification
+
+### 3️⃣ Authentication Tests
+
+-   Direct URL access without login\
+-   Session token validation\
+-   Password policy enforcement\
+-   Account lockout testing
+
+### 4️⃣ Session Management Tests
+
+-   Session ID regeneration after login\
+-   Session timeout verification\
+-   Cookie security flags (HttpOnly, Secure)\
+-   Concurrent session handling
+
+### 5️⃣ Sensitive Data Exposure Tests
+
+-   HTTPS enforcement\
+-   Password field masking\
+-   Sensitive data in URL parameters\
+-   Autocomplete disabled for sensitive fields
+
+### 6️⃣ CSRF Tests
+
+-   CSRF token presence\
+-   Token validation on form submission
+
+------------------------------------------------------------------------
+
+## 🔐 OWASP ZAP Integration
+
+### 1️⃣ Start OWASP ZAP in Daemon Mode
+
+``` bash
 zap.sh -daemon -port 8080
+```
 
-Enable in config.properties:
+### 2️⃣ Enable ZAP in `config.properties`
 
-zap.enabled=true\
-zap.host=localhost\
+``` properties
+zap.enabled=true
+zap.host=localhost
 zap.port=8080
+```
+
+### 3️⃣ Run Tests
+
+Traffic will be proxied through ZAP for additional scanning.
 
 ------------------------------------------------------------------------
 
 ## 📊 Reports
 
-Extent Report:
+Test reports are generated in:
 
-test-output/SecurityTestReport.html
+-   **ExtentReports**:\
+    `test-output/SecurityTestReport.html`
 
-TestNG Report:
-
-target/surefire-reports/
-
-------------------------------------------------------------------------
-
-## 🔁 CI/CD Integration
-
-Recommended pipeline flow:
-
-1.  Build project (mvn clean install)
-2.  Execute security suite (mvn test)
-3.  Publish reports
-4.  Fail pipeline on critical vulnerabilities
-
-Compatible with: - Jenkins - GitHub Actions - GitLab CI - Azure DevOps
+-   **TestNG Reports**:\
+    `target/surefire-reports/`
 
 ------------------------------------------------------------------------
 
-## 🛑 Security & Compliance Notice
+## 🔧 Customization
 
--   Only test applications you are authorized to assess\
--   Use in controlled environments (Dev / QA / Staging)\
--   Never test production systems without written approval\
--   Follow your organization's security governance policies
+### ➕ Adding Custom Payloads
+
+Add payloads to:
+
+    src/test/resources/payloads/
+
+-   `sql_injection_payloads.txt`\
+-   `xss_payloads.txt`
+
+### ➕ Adding New Tests
+
+1.  Create a new test class extending `BaseTest`\
+2.  Use the `@Test` annotation with appropriate groups\
+3.  Add it to `testng.xml` if required
+
+------------------------------------------------------------------------
+
+## ⚠️ Security Considerations
+
+-   Only test applications you have permission to test\
+-   Use in controlled environments (dev/staging)\
+-   Never test production systems without explicit authorization\
+-   Review and comply with your organization's security testing policies
 
 ------------------------------------------------------------------------
 
