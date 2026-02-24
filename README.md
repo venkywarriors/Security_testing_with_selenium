@@ -9,15 +9,15 @@ testing.
 ## 🚀 Features
 
 -   **SQL Injection Testing** -- Tests login forms and input fields for
-    SQL injection vulnerabilities\
--   **XSS Testing** -- Cross-Site Scripting vulnerability detection\
+    SQL injection vulnerabilities.
+-   **XSS Testing** -- Cross-Site Scripting vulnerability detection.
 -   **Authentication Testing** -- Tests for authentication bypass and
-    broken access control\
+    broken access control.
 -   **Session Management Testing** -- Session fixation, timeout, and
-    cookie security tests\
+    cookie security tests.
 -   **Sensitive Data Exposure Testing** -- HTTPS enforcement, password
-    masking, etc.\
--   **CSRF Testing** -- Cross-Site Request Forgery token validation\
+    masking, etc.
+-   **CSRF Testing** -- Cross-Site Request Forgery token validation.
 -   **OWASP ZAP Integration** -- Optional integration with OWASP ZAP
     proxy for deeper scanning
 
@@ -60,9 +60,9 @@ testing.
 
 ## 📋 Prerequisites
 
--   Java 17 or higher\
--   Maven 3.6+\
--   Chrome or Firefox browser\
+-   Java 17 or higher
+-   Maven 3.6+
+-   Chrome or Firefox browser
 -   (Optional) OWASP ZAP for proxy-based testing
 
 ------------------------------------------------------------------------
@@ -129,42 +129,42 @@ mvn test -Dheadless=true
 
 ### 1️⃣ SQL Injection Tests
 
--   Login form injection\
--   Search field injection\
--   URL parameter injection\
+-   Login form injection
+-   Search field injection
+-   URL parameter injection
 -   Error-based injection detection
 
 ### 2️⃣ XSS Tests
 
--   Reflected XSS\
--   Stored XSS\
--   DOM-based XSS\
+-   Reflected XSS
+-   Stored XSS
+-   DOM-based XSS
 -   Input sanitization verification
 
 ### 3️⃣ Authentication Tests
 
--   Direct URL access without login\
--   Session token validation\
--   Password policy enforcement\
+-   Direct URL access without login
+-   Session token validation
+-   Password policy enforcement
 -   Account lockout testing
 
 ### 4️⃣ Session Management Tests
 
--   Session ID regeneration after login\
--   Session timeout verification\
--   Cookie security flags (HttpOnly, Secure)\
+-   Session ID regeneration after login
+-   Session timeout verification
+-   Cookie security flags (HttpOnly, Secure)
 -   Concurrent session handling
 
 ### 5️⃣ Sensitive Data Exposure Tests
 
--   HTTPS enforcement\
--   Password field masking\
--   Sensitive data in URL parameters\
+-   HTTPS enforcement
+-   Password field masking
+-   Sensitive data in URL parameters
 -   Autocomplete disabled for sensitive fields
 
 ### 6️⃣ CSRF Tests
 
--   CSRF token presence\
+-   CSRF token presence
 -   Token validation on form submission
 
 ------------------------------------------------------------------------
