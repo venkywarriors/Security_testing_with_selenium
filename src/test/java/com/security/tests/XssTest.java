@@ -139,7 +139,6 @@ public class XssTest extends BaseTest {
     @Test(description = "Test for DOM-based XSS in URL hash",
             groups = {"xss", "dom"})
     public void testDomXss_UrlHash() {
-
         String[] domPayloads = {
                 "#<script>alert('XSS')</script>",
                 "#<img src=x onerror=alert('XSS')>",
@@ -194,4 +193,8 @@ public class XssTest extends BaseTest {
 
         logSecurityPassed("DOM XSS (Params)", "All parameter payloads blocked");
     }
+
+
+
+    
 }
