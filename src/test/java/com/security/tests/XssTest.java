@@ -167,7 +167,6 @@ public class XssTest extends BaseTest {
     @Test(description = "Test for DOM-based XSS in URL parameters",
             groups = {"xss", "dom"})
     public void testDomXss_UrlParameters() {
-
         String[] params = {"q", "search", "query", "keyword", "s"};
 
         for (String param : params) {
@@ -175,7 +174,7 @@ public class XssTest extends BaseTest {
 
                 String testUrl = baseUrl + "/search?" + param + "=" +
                         java.net.URLEncoder.encode(payload,
-                                java.nio.charset.StandardCharsets.UTF_8);
+                             java.nio.charset.StandardCharsets.UTF_8);
 
                 ReportManager.logInfo("Testing: " + testUrl);
                 driver.get(testUrl);
