@@ -302,7 +302,7 @@ public class XssTest extends BaseTest {
           groups = {"xss", "advanced"})
     public void testPolyglotXss() {
         String[] polyglots = {
-                "jaVasCript:/*-/*-></title></style></textarea></script><svg/onload=alert(1)>",
+                "jaVasCript:/*-/*`/*\\`/*`/*\"/**/(/* */oNcLiCk=alert() )//",
                 "\"><img src=x onerror=alert(1)//>",
                 "'-alert(1)-'",
                 "javascript:/*-->%0A%0D<script>alert(1)</script>",
