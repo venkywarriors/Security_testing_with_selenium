@@ -302,9 +302,10 @@ public class XssTest extends BaseTest {
           groups = {"xss", "advanced"})
     public void testPolyglotXss() {
         String[] polyglots = {
-                "javascript:///*--></title></style></textarea></script><svg/onload=alert(1)>",
-                "\"'><img src=x onerror=alert(1)>",
-                "';alert(1);//",
+                "jaVasCript:/*-/*-></title></style></textarea></script><svg/onload=alert(1)>",
+                "\"><img src=x onerror=alert(1)//>",
+                "'-alert(1)-'",
+                "javascript:/*-->%0A%0D<script>alert(1)</script>",
                 "<svg/onload=alert(1)>"
         };
 
@@ -314,7 +315,6 @@ public class XssTest extends BaseTest {
             ReportManager.logInfo("Testing polyglot: " + payload);
            
             searchPage.search(payload);
-
             
             if (searchPage.isAlertPresent()) {
                 searchPage.acceptAlert();
@@ -337,20 +337,20 @@ public class XssTest extends BaseTest {
         String[] bypasses = {
                 "<ScRiPt>alert(1)</ScRiPt>",
                 "<script>alert(1)</script>",
-                "<scr<script>ipt>alert(1)</script>",
-                "<img src=x onerror=alert(1)>",
+                "<<script>script>alert(1)</script>",
+                "<scr<script>ipt>alert(1)</src</script>",
+                "<script x>alert(1)</script y>",
+                "<img/ src=x onerror=alert(1)>",
+                "<img src=x onerror='alert(1)'>",
+                "<img src=x onerror=\"alert(1)\">",
                 "<body/onload=alert(1)>",
                 "<svg onload=alert(1)>",
-                "<\u0000script>alert(1)</script>",
+                "<svg/ onload=alert(1)//",
+                "<%00script>alert(1)</script>",
                 "<script>\\u0061lert(1)</script>"
-        };
-
-       
+        };   
         
-        
-        
-        
-        navigateTo("/search");
+  navigateTo("/search");
 
         for (String payload : bypasses) {
             ReportManager.logInfo("Testing bypass: " + payload);
